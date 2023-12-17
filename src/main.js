@@ -1,66 +1,14 @@
 import kaboom from "kaboom"
-
+import spawnPlayer from "./scripts/player/index.js"
+import exampleland from "./scenes/exampleland/index.js"
 const k = kaboom()
 
-k.loadSprite("bean", "sprites/bean.png")
 
+k.loadSprite("bean", "./sprites/bean.png")
 
 scene("game", () => {
-	setGravity(1600);
-
-	const bean  = add([
-		sprite("bean"),
-		pos(80, 40),
-		area(),
-		body(),
-	])
-	
-	add([
-		rect(width(), 48),
-		pos(0, height() - 48),
-		outline(4),
-		area(),
-		body({ isStatic: true }),
-		color(127, 200, 255),
-	])
-	
-	function spawnTree(){
-		add([
-			rect(48, rand(24, 64)),
-			area(),
-			outline(4),
-			pos(width(), height() - 48),
-			anchor("botleft"),
-			color(255, 180, 255),
-			move(LEFT, 240),
-			"tree", // add a tag here
-		]);
-		wait(rand(0.5, 1.5), () => {
-			spawnTree();
-		});
-	}
-	spawnTree()
-	
-	bean.onCollide("tree", () => {
-		addKaboom(bean.pos);
-		shake();
-		go("lose");
-	});
-	onKeyPress("space", () => {
-		if (bean.isGrounded()) {
-			bean.jump();
-		}
-	});
-	let score = 0;
-	const scoreLabel = add([
-    text(score),
-    pos(24, 24)
-])
-onUpdate(() => {
-    score++;
-    scoreLabel.text = score;
-});
-	
+	exampleland();
+	spawnPlayer();	
 })
 
 scene("lose", () => {
@@ -72,5 +20,3 @@ scene("lose", () => {
 })
 
 go("game")
-
-k.onClick(() => k.addKaboom(k.mousePos()))

@@ -1,3 +1,6 @@
+# bob.skeleton
+Bob the Skeleton goes for a walk
+
 # Folder structure
 
 - `src` - source code for your kaboom project
