@@ -1,35 +1,44 @@
 class Player{
-	constructor(name, health, damage) {
+	constructor(name, maxhealth, damage, modifiers) {
         this.name = name;
-        this.health = health;
+        this.maxhealth = maxhealth;
         this.damage = damage;
+		this.modifiers = modifiers;
     }
-	
+
+	currentHealth = this.maxhealth;
 	SPEED = 240;
 	JUMP_FORCE = 800;
 
-	attack(target) {
-        console.log(`${this.name} attacks ${target} and deals ${this.damage} damage.`);
-    }
-
-    takeDamage(amount) {
-        console.log(`${this.name} takes ${amount} damage.`);
-    }
-
 	spawnPlayer(){
+
 		const player  = add([
-			sprite("bean"),
-			pos(80, 40),
+			sprite("bob"),
+			pos(width()/2, 240),
 			area(),
 			body(),
+			health(this.maxhealth),
+			"player",
+			"friendly"
 		])
 	
-		player.onCollide("tree", () => {
-			addKaboom(player.pos);
-			shake();
-			go("lose");
+		player.onCollide("enemy", () => {
+			player.hurt(10);
 		});
 		
+		//Death behavior
+		player.on("death", () => {
+			if (player.modifiers.hasImmortality){
+				player.heal(this.maxhealth/2);
+			}
+			go("lose");
+		});
+
+		//Attack
+		onKeyDown("f",()=>{
+			console.log("attack");
+		}) 
+
 		//left movement
 		onKeyDown("a",() => {
 			player.move(-this.SPEED, 0);
@@ -40,6 +49,7 @@ class Player{
 		onGamepadButtonDown("dpad-left", () =>{
 			player.move(-this.SPEED, 0);
 		});
+
 		//right movement
 		onKeyDown("d",() => {
 			player.move(this.SPEED, 0);
@@ -54,6 +64,7 @@ class Player{
 		//jump movement
 		onKeyPress("space" , () => {
 			if (player.isGrounded()) {
+				player.hurt(10);
 				player.jump(this.JUMP_FORCE);
 			}
 		});
@@ -79,9 +90,4 @@ class Player{
 		});
 	}
 }
-
-
-
-
-
 export default Player;

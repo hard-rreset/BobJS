@@ -5,24 +5,15 @@ const k = kaboom()
 
 
 k.loadSprite("bean", "./sprites/bean.png")
-k.loadSound("spooky","/sounds/music/spooky.mp3")
+k.loadSprite("bob", "./sprites/characters/bob/bob.png")
 
-const player = new Player("bean", 100, 10);
-
-const music = play("spooky", {
-	loop: true,
-	paused: false,
-})
-
-k.volume(0.5);
+const player = new Player("bob", 100, 10);
 
 scene("game", () => {
-    k.onKeyPress("space", () => {
-        music.paused = !music.paused;
-    })
-	testgrounds();
-	player.spawnPlayer();	
-})
+    testgrounds();
+    player.spawnPlayer();
+})  
+
 
 scene("lose", () => {
 	add([

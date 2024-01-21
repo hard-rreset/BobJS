@@ -7,7 +7,6 @@ function testgrounds(){
 		area(),
 		body({ isStatic: true }),
 		color(127, 200, 255),
-	])
+	]);
 }
-
 export default testgrounds;

@@ -2,6 +2,7 @@ class Vendor {
     constructor(name, inventory) {
         this.name = name;
         this.inventory = inventory;
+        this.tag = "vendor";
     }
 
     getName() {
