@@ -10,7 +10,7 @@ const k = kaboom({
 k.loadSprite("bean", "./sprites/bean.png")
 k.loadSprite("bob", "./sprites/characters/bob/bob.png")
 
-modifiers  = new Modifiers(false, false, false, 0, 1, 1);
+modifiers  = new Modifiers(true, false, false, 0, 1, 1);
 
 const player = new Player("bob", 100, 10, modifiers);
 

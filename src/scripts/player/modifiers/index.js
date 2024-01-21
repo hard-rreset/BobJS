@@ -1,10 +1,17 @@
 class Modifiers
 {
     dodgeMultiplier = 0;
+    
     speedMultiplier = 1;
     healthMultiplier = 1;
+    
+    reviveQuantity = 0;
+    
+    canRevive = false;
+    canDoubleJump = false;
+    canDash = false;
 
-    constructor(canRevive, canDoubleJump, canDash,dodgeMultiplier, speedMultiplier, healthMultiplier)
+    constructor(canRevive, canDoubleJump, canDash,dodgeMultiplier, speedMultiplier, healthMultiplier, reviveQuantity)
     {
         this.canRevive = canRevive;
         this.canDoubleJump = canDoubleJump;
@@ -12,13 +19,33 @@ class Modifiers
         this.dodgeMultiplier = dodgeMultiplier;
         this.speedMultiplier = speedMultiplier;
         this.healthMultiplier = healthMultiplier;
+        this.reviveQuantity = reviveQuantity;
     };
 
     setRevive(canRevive)
     {
       this.canRevive = canRevive;
     };
+    getReviveQuantity()
+    {
+        if (this.canRevive == true && this.reviveQuantity <= 0){this.reviveQuantity = 1;}
+        return this.reviveQuantity;
+    }
+    addReviveQuantity()
+    {
+        return this.reviveQuantity++;
+    }
 
+    removeReviveQuantity()
+    {
+        return this.reviveQuantity--;
+    }
+
+    setReviveQuantity(reviveQuantity)
+    {
+        this.reviveQuantity = reviveQuantity;
+    }
+    
     hasRevive(){
         return this.canRevive;
     }

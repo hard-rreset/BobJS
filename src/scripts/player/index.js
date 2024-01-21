@@ -38,6 +38,10 @@ class Player{
 			"friendly"
 		])
 	
+		//Modifiers Info
+		
+
+
 		//collision with an Enemy
 		player.onCollide("enemy", () => {
 			player.hurt(10);
@@ -45,11 +49,24 @@ class Player{
 		
 		//death behavior
 		player.on("death", () => {
+			let reviveQuantity = this.modifiers.getReviveQuantity();
 			if (this.modifiers.hasRevive()){
-				this.modifiers.setRevive(false);
+				if (reviveQuantity > 1){
+					console.log("revive quantity: " + reviveQuantity)
+					reviveQuantity--;
+					this.modifiers.removeReviveQuantity();
+				}else{
+					this.modifiers.setRevive(false);
+					this.modifiers.setReviveQuantity(0);
+					reviveQuantity = 0;
+				}
 				player.heal(this.maxhealth/2);
+				console.log("revive")
+				console.log(this.maxhealth/2);
 			}
+			else{
 			go("lose");
+			}
 		});
 
 		//attack
