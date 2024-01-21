@@ -82,14 +82,14 @@ class Player{
 		});
 		onGamepadButtonDown("dpad-right", () =>{
 			player.move(this.SPEED, 0);
-			bob.flipX = true;
+			player.flipX = true;
 		});
 		
 		//jump movement
 		onKeyPress("space" , () => {
 			if (player.isGrounded()) 
 			{
-				player.hurt(10);
+				player.hurt(10); // temporary for testing damage and death behaviors
 				player.jump(this.JUMP_FORCE);
 			}	
 
