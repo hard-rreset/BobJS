@@ -1,40 +1,58 @@
 class Player{
-	constructor(name, maxhealth, damage, modifiers) {
+	constructor(name, maxhealth, damage, modifiers) 
+	{
         this.name = name;
         this.maxhealth = maxhealth;
         this.damage = damage;
 		this.modifiers = modifiers;
     }
 
-	currentHealth = this.maxhealth;
-	SPEED = 240;
-	JUMP_FORCE = 800;
+	currentHealth = this.maxhealth * modifiers.getHealthMultiplier();
+	SPEED = 240 * modifiers.getSpeedMultiplier();
+	JUMP_FORCE = 800 * modifiers.getSpeedMultiplier(); //why does speed multiplier affect jump force?? Because it's fun
 
-	spawnPlayer(){
+	getJumpForce()
+	{
+		return this.JUMP_FORCE;
+	}
+	getSpeed()
+	{
+		return this.SPEED;	
+	}
+	getModifiers()
+	{
+		return this.modifiers;
+	}
+	
+
+	spawnPlayer()
+	{
 
 		const player  = add([
 			sprite("bob"),
 			pos(width()/2, 240),
 			area(),
 			body(),
-			health(this.maxhealth),
+			health(this.maxhealth * this.modifiers.getHealthMultiplier()),
 			"player",
 			"friendly"
 		])
 	
+		//collision with an Enemy
 		player.onCollide("enemy", () => {
 			player.hurt(10);
 		});
 		
-		//Death behavior
+		//death behavior
 		player.on("death", () => {
-			if (player.modifiers.hasImmortality){
+			if (this.modifiers.hasRevive()){
+				this.modifiers.setRevive(false);
 				player.heal(this.maxhealth/2);
 			}
 			go("lose");
 		});
 
-		//Attack
+		//attack
 		onKeyDown("f",()=>{
 			console.log("attack");
 		}) 
@@ -42,31 +60,45 @@ class Player{
 		//left movement
 		onKeyDown("a",() => {
 			player.move(-this.SPEED, 0);
+			player.flipX = false;
 		});
 		onKeyDown("left",() => {
 			player.move(-this.SPEED, 0);
+			player.flipX = false;
 		});
 		onGamepadButtonDown("dpad-left", () =>{
 			player.move(-this.SPEED, 0);
+			player.flipX = false;
 		});
 
 		//right movement
 		onKeyDown("d",() => {
 			player.move(this.SPEED, 0);
+			player.flipX = true;
 		});
 		onKeyDown("right",() => {
 			player.move(this.SPEED, 0);
+			player.flipX = true; 
 		});
 		onGamepadButtonDown("dpad-right", () =>{
 			player.move(this.SPEED, 0);
+			bob.flipX = true;
 		});
 		
 		//jump movement
 		onKeyPress("space" , () => {
-			if (player.isGrounded()) {
+			if (player.isGrounded()) 
+			{
 				player.hurt(10);
 				player.jump(this.JUMP_FORCE);
-			}
+			}	
+
+			//This doesn't work yet need to restructure this
+			if (!player.isGrounded() && this.modifiers.hasDoubleJump()) 
+			{
+				this.modifiers.setDoubleJump(false);
+				player.jump(this.JUMP_FORCE);
+			};
 		});
 		onKeyPress("w" , () => {
 			if (player.isGrounded()) {
