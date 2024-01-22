@@ -13,24 +13,30 @@ k.loadSprite("bob", "./sprites/characters/bob/bob.png")
 
 spawner = new Spawner();
 
-modifiers  = new Modifiers(false, false, false, 0, 1, 1);
 
-const player = new Player("bob", 100, 10, modifiers);
+
+const player = new Player();
 
 scene("game", () => {
+    
     testgrounds();
     player.spawnPlayer();
-    spawner.spawnRandomItem();
-    spawner.spawnRandomItem();
-    spawner.spawnRandomItem();
-    spawner.spawnRandomItem();
-    spawner.spawnRandomItem();
+
+    spawner.continuousRandomItemSpawn();
+    
+    spawner.spawnSpecificItem("health");
+    spawner.spawnSpecificItem("health");
+    
+ 
     player.logEverything();
+
     let hp = player.getCurrentHealth();
+    
     const hplabel = add([
         text("HP: " + hp),
         pos(10, 10)
     ]);
+    
     onUpdate(() => {
         let hp = player.getCurrentHealth();
         hplabel.text = "HP: " + hp;
