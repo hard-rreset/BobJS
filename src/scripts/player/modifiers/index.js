@@ -1,24 +1,35 @@
 class Modifiers
 {
-    dodgeMultiplier = 0;
-    
-    speedMultiplier = 1;
-    healthMultiplier = 1;
-    
-    reviveQuantity = 0;
-    
-    canRevive = false;
-    canDoubleJump = false;
-    canDash = false;
-
-    constructor(canRevive, canDoubleJump, canDash,dodgeMultiplier, speedMultiplier, healthMultiplier, reviveQuantity)
+    constructor(  
+        
+        canRevive = false,
+        canDoubleJump = false,
+        canDash = false,
+        
+        dodgeMultiplier = 0,
+        speedMultiplier = 1,
+        healthMultiplier = 1,
+        
+        damageMultiplier = 1,
+        attackSpeedMultiplier = 1,
+        attackRangeMultiplier = 1,
+        
+        reviveQuantity = 0
+        
+        )
     {
         this.canRevive = canRevive;
         this.canDoubleJump = canDoubleJump;
         this.canDash = canDash;
+        
         this.dodgeMultiplier = dodgeMultiplier;
         this.speedMultiplier = speedMultiplier;
         this.healthMultiplier = healthMultiplier;
+        this.damageMultiplier = damageMultiplier;
+
+        this.attackSpeedMultiplier = attackSpeedMultiplier
+        this.attackRangeMultiplier = attackRangeMultiplier;
+        
         this.reviveQuantity = reviveQuantity;
     };
 
