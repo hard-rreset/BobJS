@@ -26,48 +26,51 @@ class Modifiers
     {
       this.canRevive = canRevive;
     };
+    
     getReviveQuantity()
     {
         if (this.canRevive == true && this.reviveQuantity <= 0){this.reviveQuantity = 1;}
         return this.reviveQuantity;
-    }
+    };
     addReviveQuantity()
     {
         return this.reviveQuantity++;
-    }
+    };
 
     removeReviveQuantity()
     {
         return this.reviveQuantity--;
-    }
+    };
 
     setReviveQuantity(reviveQuantity)
     {
         this.reviveQuantity = reviveQuantity;
-    }
+    };
     
-    hasRevive(){
+    hasRevive()
+    {
         return this.canRevive;
-    }
+    };
     
-    setDoubleJump(canDoubleJump){
+    setDoubleJump(canDoubleJump)
+    {
         this.canDoubleJump = canDoubleJump;
-    }
+    };
 
     hasDoubleJump()
     {
         return this.canDoubleJump;
-    }
+    };
 
     setDash(canDash)
     {
         this.canDash = canDash;
-    }
+    };
 
     hasDash()
     {
         return this.canDash;
-    }
+    };
 
     getDodgeMultiplier() 
     {
@@ -76,7 +79,7 @@ class Modifiers
             this.dodgeMultiplier = 0.1;
         };
         return this.dodgeMultiplier;
-    }
+    };
 
     getSpeedMultiplier() 
     {
@@ -85,17 +88,20 @@ class Modifiers
             this.speedMultiplier = 0.1;
         };
         return this.speedMultiplier;
+    };
+    setSpeedMultiplier(speedMultiplier)
+    {
+        this.speedMultiplier = speedMultiplier;
     }
-
     getHealthMultiplier() 
     {
         if(this.healthMultiplier <= 0)
         {
             this.healthMultiplier = 0.1;
-        }
+        };
         return this.healthMultiplier;
         
-    }
+    };
 
 }
 export default Modifiers;

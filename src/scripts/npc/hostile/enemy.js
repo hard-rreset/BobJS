@@ -5,8 +5,5 @@ class Enemy {
         this.damage = damage;
         this.tag = "enemy";
     }
-
-
 }
-
 module.exports = Enemy;
