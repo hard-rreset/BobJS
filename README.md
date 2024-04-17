@@ -1,5 +1,7 @@
-# bob.skeleton
+# bob.skeleton [deprecated]
 Bob the Skeleton goes for a walk
+
+This was the time i was messing with JS and decided to make a game.
 
 # Folder structure
 
